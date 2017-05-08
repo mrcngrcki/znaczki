@@ -129,4 +129,14 @@ public class ProstaBazaDanych implements ZnaczkiRepository {
         return true;
     }
 
+	@Override
+	public List<Znaczek> findAllToSell() {
+		List<Znaczek> tmp = new ArrayList<>();
+        for (int i = 0; i < baza.length; i++) {
+            if (baza[i] != null)
+                tmp.add(baza[i]);
+        }
+        return tmp;
+	}
+
 }
