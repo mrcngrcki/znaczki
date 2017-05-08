@@ -21,14 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pl.sternik.mg.znaczki.entities.Moneta;
+import pl.sternik.mg.znaczki.entities.Znaczek;
 import pl.sternik.mg.znaczki.entities.Status;
 import pl.sternik.mg.znaczki.services.KlaserService;
 import pl.sternik.mg.znaczki.services.NotificationService;
 
 
 @Controller
-public class MonetyController {
+public class ZnaczkiController {
 
     @Autowired
     // @Qualifier("spring")
@@ -42,75 +42,75 @@ public class MonetyController {
         return Arrays.asList(Status.ALL);
     }
 
-    @GetMapping(value = "/monety/{id}")
+    @GetMapping(value = "/znaczki/{id}")
     public String view(@PathVariable("id") Long id, final ModelMap model) {
-        Optional<Moneta> result;
+        Optional<Znaczek> result;
         result = klaserService.findById(id);
         if (result.isPresent()) {
-            Moneta moneta = result.get();
-            model.addAttribute("moneta", moneta);
-            return "moneta";
+            Znaczek znaczek = result.get();
+            model.addAttribute("znaczek", znaczek);
+            return "znaczek";
         } else {
-            notifyService.addErrorMessage("Cannot find moneta #" + id);
+            notifyService.addErrorMessage("Cannot find znaczek #" + id);
             model.clear();
-            return "redirect:/monety";
+            return "redirect:/znaczki";
         }
     }
 
-    @RequestMapping(value = "/monety/{id}/json", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/znaczki/{id}/json", produces = "application/json", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Moneta> viewAsJson(@PathVariable("id") Long id, final ModelMap model) {
-        Optional<Moneta> result;
+    public ResponseEntity<Znaczek> viewAsJson(@PathVariable("id") Long id, final ModelMap model) {
+        Optional<Znaczek> result;
         result = klaserService.findById(id);
         if (result.isPresent()) {
-            Moneta moneta = result.get();
-            return new ResponseEntity<Moneta>(moneta, HttpStatus.OK);
+            Znaczek znaczek = result.get();
+            return new ResponseEntity<Znaczek>(znaczek, HttpStatus.OK);
         } else {
-            notifyService.addErrorMessage("Cannot find moneta #" + id);
+            notifyService.addErrorMessage("Cannot find znaczek #" + id);
             model.clear();
-            return new ResponseEntity<Moneta>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Znaczek>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @RequestMapping(value = "/monety", params = { "save" }, method = RequestMethod.POST)
-    public String saveMoneta(Moneta moneta, BindingResult bindingResult, ModelMap model) {
+    @RequestMapping(value = "/znaczki", params = { "save" }, method = RequestMethod.POST)
+    public String saveMoneta(Znaczek znaczek, BindingResult bindingResult, ModelMap model) {
 
         if (bindingResult.hasErrors()) {
             notifyService.addErrorMessage("Please fill the form correctly!");
-            return "moneta";
+            return "znaczek";
         }
-        Optional<Moneta> result = klaserService.edit(moneta);
+        Optional<Znaczek> result = klaserService.edit(znaczek);
         if (result.isPresent())
             notifyService.addInfoMessage("Zapis udany");
         else
             notifyService.addErrorMessage("Zapis NIE udany");
         model.clear();
-        return "redirect:/monety";
+        return "redirect:/znaczek";
     }
 
-    @RequestMapping(value = "/monety", params = { "create" }, method = RequestMethod.POST)
-    public String createMoneta(Moneta moneta, BindingResult bindingResult, ModelMap model) {
+    @RequestMapping(value = "/znaczki", params = { "create" }, method = RequestMethod.POST)
+    public String createZnaczek(Znaczek znaczek, BindingResult bindingResult, ModelMap model) {
         if (bindingResult.hasErrors()) {
             notifyService.addErrorMessage("Please fill the form correctly!");
-            return "moneta";
+            return "znaczek";
         }
-        klaserService.create(moneta);
+        klaserService.create(znaczek);
         model.clear();
         notifyService.addInfoMessage("Zapis nowej udany");
-        return "redirect:/monety";
+        return "redirect:/znaczki";
     }
 
-    @RequestMapping(value = "/monety", params = { "remove" }, method = RequestMethod.POST)
-    public String removeRow(final Moneta moneta, final BindingResult bindingResult, final HttpServletRequest req) {
+    @RequestMapping(value = "/znaczki", params = { "remove" }, method = RequestMethod.POST)
+    public String removeRow(final Znaczek znaczek, final BindingResult bindingResult, final HttpServletRequest req) {
         final Integer rowId = Integer.valueOf(req.getParameter("remove"));
         Optional<Boolean> result = klaserService.deleteById(rowId.longValue());
-        return "redirect:/monety";
+        return "redirect:/znaczki";
     }
 
-    @RequestMapping(value = "/monety/create", method = RequestMethod.GET)
-    public String showMainPages(final Moneta moneta) {
-        // Ustawiamy date nowej monety, na dole strony do dodania
-        moneta.setDataNabycia(Calendar.getInstance().getTime());
-        return "moneta";
+    @RequestMapping(value = "/znaczki/create", method = RequestMethod.GET)
+    public String showMainPages(final Znaczek znaczek) {
+        // Ustawiamy date nowego znaczka, na dole strony do dodania
+    	znaczek.setDataNabycia(Calendar.getInstance().getTime());
+        return "znaczek";
     }
 }

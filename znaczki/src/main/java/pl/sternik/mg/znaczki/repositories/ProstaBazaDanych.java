@@ -8,93 +8,93 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import pl.sternik.mg.znaczki.entities.Moneta;
+import pl.sternik.mg.znaczki.entities.Znaczek;
 import pl.sternik.mg.znaczki.entities.Status;
 
 
 @Repository
 @Qualifier("tablica")
-public class ProstaBazaDanych implements MonetyRepository {
+public class ProstaBazaDanych implements ZnaczkiRepository {
 
-    private Moneta[] baza;
+    private Znaczek[] baza;
 
     public ProstaBazaDanych() {
-        baza = new Moneta[15];
-        Moneta m = new Moneta();
-        m.setNumerKatalogowy(0L);
-        m.setKrajPochodzenia("Polska");
-        m.setNominal(1L);
-        m.setWaluta("zł");
-        m.setOpis("Ładna nowiutka złotóweczka");
-        m.setDataNabycia(new Date());
-        m.setCenaNabycia(new BigDecimal("1.2"));
-        m.setStatus(Status.NOWA);
-        baza[0] = m;
-        m = new Moneta();
-        m.setNumerKatalogowy(2L);
-        m.setKrajPochodzenia("Polska");
-        m.setNominal(2L);
-        m.setWaluta("zł");
-        m.setOpis("Ładna nowiutka dwu złotóweczka");
-        m.setDataNabycia(new Date());
-        m.setCenaNabycia(new BigDecimal("2.2"));
-        m.setStatus(Status.DO_SPRZEDANIA);
-        baza[2] = m;
+        baza = new Znaczek[15];
+        Znaczek z = new Znaczek();
+        z.setNumerKatalogowy(0L);
+        z.setKrajPochodzenia("Polska");
+        z.setNominal(1L);
+        z.setWaluta("zł");
+        z.setOpis("Ładna nowiutka złotóweczka");
+        z.setDataNabycia(new Date());
+        z.setCenaNabycia(new BigDecimal("1.2"));
+        z.setStatus(Status.NOWY);
+        baza[0] = z;
+        z = new Znaczek();
+        z.setNumerKatalogowy(2L);
+        z.setKrajPochodzenia("Polska");
+        z.setNominal(2L);
+        z.setWaluta("zł");
+        z.setOpis("Ładna nowiutka dwu złotóweczka");
+        z.setDataNabycia(new Date());
+        z.setCenaNabycia(new BigDecimal("2.2"));
+        z.setStatus(Status.DO_SPRZEDANIA);
+        baza[2] = z;
 
     }
 
     public ProstaBazaDanych(int rozmiarBazy) {
-        baza = new Moneta[rozmiarBazy];
+        baza = new Znaczek[rozmiarBazy];
     }
 
     @Override
-    public Moneta create(Moneta moneta) throws MonetaAlreadyExistsException {
-        if (moneta.getNumerKatalogowy() != null && baza[moneta.getNumerKatalogowy().intValue()] != null) {
-            if (moneta.getNumerKatalogowy().equals(baza[moneta.getNumerKatalogowy().intValue()].getNumerKatalogowy())) {
-                throw new MonetaAlreadyExistsException("Już jest moneta o takim numerze.");
+    public Znaczek create(Znaczek znaczek) throws ZnaczekAlreadyExistsException {
+        if (znaczek.getNumerKatalogowy() != null && baza[znaczek.getNumerKatalogowy().intValue()] != null) {
+            if (znaczek.getNumerKatalogowy().equals(baza[znaczek.getNumerKatalogowy().intValue()].getNumerKatalogowy())) {
+                throw new ZnaczekAlreadyExistsException("Już jest znaczek o takim numerze.");
             }
         }
         for (int i = 0; i < baza.length; i++) {
             if (baza[i] == null) {
-                baza[i] = moneta;
-                moneta.setNumerKatalogowy((long) i);
-                return moneta;
+                baza[i] = znaczek;
+                znaczek.setNumerKatalogowy((long) i);
+                return znaczek;
             }
         }
         throw new RuntimeException("Brak miejsca w tablicy");
     }
 
     @Override
-    public void deleteById(Long id) throws NoSuchMonetaException {
+    public void deleteById(Long id) throws NoSuchZnaczekException {
         int numerKatalogowy = id.intValue();
         if (!sprawdzPoprawnoscNumeruKatalogowego(numerKatalogowy)) {
-            throw new NoSuchMonetaException("Nie poprawny numer katologowy");
+            throw new NoSuchZnaczekException("Nie poprawny numer katologowy");
         }
         // tu troche zle ;)
         baza[numerKatalogowy] = null;
     }
 
     @Override
-    public Moneta update(Moneta moneta) throws NoSuchMonetaException {
-        int numerKatalogowy = moneta.getNumerKatalogowy().intValue();
+    public Znaczek update(Znaczek znaczek) throws NoSuchZnaczekException {
+        int numerKatalogowy = znaczek.getNumerKatalogowy().intValue();
         if (!sprawdzPoprawnoscNumeruKatalogowego(numerKatalogowy)) {
-            throw new NoSuchMonetaException("Nie poprawny numer katologowy");
+            throw new NoSuchZnaczekException("Nie poprawny numer katologowy");
         }
 
-        Moneta m = baza[moneta.getNumerKatalogowy().intValue()];
+        Znaczek m = baza[znaczek.getNumerKatalogowy().intValue()];
         if (m == null) {
-            throw new NoSuchMonetaException("Brak takiej monety.");
+            throw new NoSuchZnaczekException("Brak takiego znaczka.");
         } else {
-            baza[moneta.getNumerKatalogowy().intValue()] = moneta;
+            baza[znaczek.getNumerKatalogowy().intValue()] = znaczek;
         }
-        return moneta;
+        return znaczek;
     }
 
     @Override
-    public Moneta readById(Long numerKatalogowy) throws NoSuchMonetaException {
+    public Znaczek readById(Long numerKatalogowy) throws NoSuchZnaczekException {
         int id = numerKatalogowy.intValue();
         if (!sprawdzPoprawnoscNumeruKatalogowego(id) || czyWolne(id)) {
-            throw new NoSuchMonetaException();
+            throw new NoSuchZnaczekException();
         }
         return baza[id];
     }
@@ -106,8 +106,8 @@ public class ProstaBazaDanych implements MonetyRepository {
     }
 
     @Override
-    public List<Moneta> findAll() {
-        List<Moneta> tmp = new ArrayList<>();
+    public List<Znaczek> findAll() {
+        List<Znaczek> tmp = new ArrayList<>();
         for (int i = 0; i < baza.length; i++) {
             if (baza[i] != null)
                 tmp.add(baza[i]);

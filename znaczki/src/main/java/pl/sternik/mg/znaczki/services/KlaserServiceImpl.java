@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import pl.sternik.mg.znaczki.entities.Moneta;
-import pl.sternik.mg.znaczki.repositories.MonetaAlreadyExistsException;
-import pl.sternik.mg.znaczki.repositories.MonetyRepository;
-import pl.sternik.mg.znaczki.repositories.NoSuchMonetaException;
+import pl.sternik.mg.znaczki.entities.Znaczek;
+import pl.sternik.mg.znaczki.repositories.ZnaczekAlreadyExistsException;
+import pl.sternik.mg.znaczki.repositories.ZnaczkiRepository;
+import pl.sternik.mg.znaczki.repositories.NoSuchZnaczekException;
 
 
 @Service
@@ -20,41 +20,41 @@ public class KlaserServiceImpl implements KlaserService {
 
     @Autowired
     @Qualifier("tablica")
-    private MonetyRepository bazaDanych;
+    private ZnaczkiRepository bazaDanych;
 
     @Override
-    public List<Moneta> findAll() {
+    public List<Znaczek> findAll() {
         return bazaDanych.findAll();
     }
 
     @Override
-    public List<Moneta> findAllToSell() {
+    public List<Znaczek> findAllToSell() {
         return bazaDanych.findAll();
     }
 
     @Override
-    public Optional<Moneta> findById(Long id) {
+    public Optional<Znaczek> findById(Long id) {
         try {
             return Optional.of(bazaDanych.readById(id));
-        } catch (NoSuchMonetaException e) {
+        } catch (NoSuchZnaczekException e) {
             return Optional.empty();
         }
     }
 
     @Override
-    public Optional<Moneta> create(Moneta moneta) {
+    public Optional<Znaczek> create(Znaczek znaczek) {
         try {
-            return Optional.of(bazaDanych.create(moneta));
-        } catch (MonetaAlreadyExistsException e) {
+            return Optional.of(bazaDanych.create(znaczek));
+        } catch (ZnaczekAlreadyExistsException e) {
             return Optional.empty();
         }
     }
 
     @Override
-    public Optional<Moneta> edit(Moneta moneta) {
+    public Optional<Znaczek> edit(Znaczek znaczek) {
         try {
-            return Optional.of(bazaDanych.update(moneta));
-        } catch (NoSuchMonetaException e) {
+            return Optional.of(bazaDanych.update(znaczek));
+        } catch (NoSuchZnaczekException e) {
             return Optional.empty();
         }
 
@@ -65,13 +65,13 @@ public class KlaserServiceImpl implements KlaserService {
         try {
             bazaDanych.deleteById(id);
             return Optional.of(Boolean.TRUE);
-        } catch (NoSuchMonetaException e) {
+        } catch (NoSuchZnaczekException e) {
             return Optional.of(Boolean.FALSE);
         }
     }
 
     @Override
-    public List<Moneta> findLatest3() {
+    public List<Znaczek> findLatest3() {
         return Collections.emptyList();
     }
 

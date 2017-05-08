@@ -3,21 +3,21 @@ package pl.sternik.mg.znaczki.services;
 import java.util.List;
 import java.util.Optional;
 
-import pl.sternik.mg.znaczki.entities.Moneta;
+import pl.sternik.mg.znaczki.entities.Znaczek;
 
 
 public interface KlaserService {
-    List<Moneta> findAll();
+    List<Znaczek> findAll();
 
-    List<Moneta> findAllToSell();
+    List<Znaczek> findAllToSell();
 
-    Optional<Moneta> findById(Long id);
+    Optional<Znaczek> findById(Long id);
 
-    Optional<Moneta> create(Moneta moneta);
+    Optional<Znaczek> create(Znaczek znaczek);
 
-    Optional<Moneta> edit(Moneta moneta);
+    Optional<Znaczek> edit(Znaczek znaczek);
 
     Optional<Boolean> deleteById(Long id);
 
-    List<Moneta> findLatest3();
+    List<Znaczek> findLatest3();
 }

@@ -3,12 +3,12 @@ package pl.sternik.mg.znaczki.entities;
 
 public enum Status {
     
-    NOWA("Nowa"), 
+    NOWY("Nowy"), 
     DO_SPRZEDANIA("Do sprzedania"),
     DUBLET("Dublet");
     
     
-    public static final Status[] ALL = { NOWA, DO_SPRZEDANIA, DUBLET };
+    public static final Status[] ALL = { NOWY, DO_SPRZEDANIA, DUBLET };
     
     
     private final String name;
@@ -21,7 +21,7 @@ public enum Status {
 //        if (name == null) {
 //            throw new IllegalArgumentException("Nie mozna nula dla Status");
 //        }
-//        if (name.equalsIgnoreCase("NOWA")) {
+//        if (name.equalsIgnoreCase("NOWY")) {
 //            return NOWA;
 //        } else if (name.equalsIgnoreCase("DO_SPRZEDANIA")) {
 //            return Status.DO_SPRZEDANIA;

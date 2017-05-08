@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import pl.sternik.mg.znaczki.entities.Moneta;
+import pl.sternik.mg.znaczki.entities.Znaczek;
 import pl.sternik.mg.znaczki.entities.Status;
-import pl.sternik.mg.znaczki.repositories.MonetaAlreadyExistsException;
-import pl.sternik.mg.znaczki.repositories.MonetyRepository;
-import pl.sternik.mg.znaczki.repositories.NoSuchMonetaException;
+import pl.sternik.mg.znaczki.repositories.ZnaczekAlreadyExistsException;
+import pl.sternik.mg.znaczki.repositories.ZnaczkiRepository;
+import pl.sternik.mg.znaczki.repositories.NoSuchZnaczekException;
 
 
 @Service
@@ -23,36 +23,36 @@ public class KlaserServiceJ8Impl implements KlaserService {
 
     @Autowired
     @Qualifier("lista")
-    private MonetyRepository monety;
+    private ZnaczkiRepository znaczki;
 
     @Override
-    public List<Moneta> findAll() {
-        return monety.findAll();
+    public List<Znaczek> findAll() {
+        return znaczki.findAll();
     }
 
     @Override
-    public List<Moneta> findLatest3() {
-        return monety.findAll().stream().sorted((a, b) -> b.getDataNabycia().compareTo(a.getDataNabycia())).limit(5)
+    public List<Znaczek> findLatest3() {
+        return znaczki.findAll().stream().sorted((a, b) -> b.getDataNabycia().compareTo(a.getDataNabycia())).limit(5)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Moneta> findById(Long id) {
+    public Optional<Znaczek> findById(Long id) {
         try {
-            return Optional.of(monety.readById(id));
-        } catch (NoSuchMonetaException e) {
+            return Optional.of(znaczki.readById(id));
+        } catch (NoSuchZnaczekException e) {
             return Optional.empty();
         }
     }
 
     @Override
-    public Optional<Moneta> create(Moneta moneta) {
+    public Optional<Znaczek> create(Znaczek znaczek) {
         try {
-            return Optional.of(monety.create(moneta));
-        } catch (MonetaAlreadyExistsException e) {
+            return Optional.of(znaczki.create(znaczek));
+        } catch (ZnaczekAlreadyExistsException e) {
             try {
-                return Optional.of(monety.readById(moneta.getNumerKatalogowy()));
-            } catch (NoSuchMonetaException e1) {
+                return Optional.of(znaczki.readById(znaczek.getNumerKatalogowy()));
+            } catch (NoSuchZnaczekException e1) {
                 return Optional.empty();
             }
         }
@@ -60,10 +60,10 @@ public class KlaserServiceJ8Impl implements KlaserService {
     }
 
     @Override
-    public Optional<Moneta> edit(Moneta moneta) {
+    public Optional<Znaczek> edit(Znaczek znaczek) {
         try {
-            return Optional.of(monety.update(moneta));
-        } catch (NoSuchMonetaException e) {
+            return Optional.of(znaczki.update(znaczek));
+        } catch (NoSuchZnaczekException e) {
             return Optional.empty();
         }
     }
@@ -71,16 +71,16 @@ public class KlaserServiceJ8Impl implements KlaserService {
     @Override
     public Optional<Boolean> deleteById(Long id) {
         try {
-            monety.deleteById(id);
+            znaczki.deleteById(id);
             return Optional.of(Boolean.TRUE);
-        } catch (NoSuchMonetaException e) {
+        } catch (NoSuchZnaczekException e) {
             return Optional.of(Boolean.FALSE);
         }
     }
 
     @Override
-    public List<Moneta> findAllToSell() {
-        return monety.findAll().stream().filter(p -> Objects.equals(p.getStatus(), Status.DO_SPRZEDANIA))
+    public List<Znaczek> findAllToSell() {
+        return znaczki.findAll().stream().filter(p -> Objects.equals(p.getStatus(), Status.DO_SPRZEDANIA))
                 .collect(Collectors.toList());
     }
 }

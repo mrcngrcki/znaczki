@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 //@Entity
 //@XmlRootElement
-public class Moneta {
+public class Znaczek {
 
 //    @NotNull
 //    @Id
@@ -16,7 +16,7 @@ public class Moneta {
 //	@NotNull
 	private Long nominal;
 	
-	//@Size(min=2, max=30, message = "{Size.moneta.opis}")
+	//@Size(min=2, max=30, message = "{Size.znaczek.opis}")
 //	@Size(min=2, max=30, message = "Opis should be in the range [{min}...{max}]")
 	private String opis;
 //	@NotEmpty
@@ -32,18 +32,18 @@ public class Moneta {
 
 	
 	
-	public static Moneta produceMoneta(Long numerKatalogowy, String krajPochodzenia, Long nominal, String waluta, String opis,
+	public static Znaczek produceZnaczek(Long numerKatalogowy, String krajPochodzenia, Long nominal, String waluta, String opis,
 			Date dataNabycia, BigDecimal cenaNabycia, Status status) {
-		Moneta m = new Moneta();
-		m.numerKatalogowy = numerKatalogowy;
-		m.krajPochodzenia = krajPochodzenia;
-		m.nominal = nominal;
-		m.opis = opis;
-		m.waluta = waluta;
-		m.cenaNabycia = cenaNabycia;
-		m.dataNabycia = dataNabycia;
-		m.status = status;
-		return m;
+		Znaczek z = new Znaczek();
+		z.numerKatalogowy = numerKatalogowy;
+		z.krajPochodzenia = krajPochodzenia;
+		z.nominal = nominal;
+		z.opis = opis;
+		z.waluta = waluta;
+		z.cenaNabycia = cenaNabycia;
+		z.dataNabycia = dataNabycia;
+		z.status = status;
+		return z;
 	}
 
 	public Long getNumerKatalogowy() {
@@ -133,7 +133,7 @@ public class Moneta {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Moneta other = (Moneta) obj;
+		Znaczek other = (Znaczek) obj;
 		if (opis == null) {
 			if (other.opis != null)
 				return false;
@@ -179,7 +179,7 @@ public class Moneta {
 
 	@Override
 	public String toString() {
-		return "Moneta [numerKatalogowy=" + numerKatalogowy + ", nominal=" + nominal + ", Opis=" + opis + ", waluta="
+		return "Znaczek [numerKatalogowy=" + numerKatalogowy + ", nominal=" + nominal + ", Opis=" + opis + ", waluta="
 				+ waluta + ", cenaNabycia=" + cenaNabycia + ", dataNabycia=" + dataNabycia + ", krajPochodzenia="
 				+ krajPochodzenia + ", status=" + status + "]";
 	}

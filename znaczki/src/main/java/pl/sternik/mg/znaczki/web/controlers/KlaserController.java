@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pl.sternik.mg.znaczki.entities.Moneta;
+import pl.sternik.mg.znaczki.entities.Znaczek;
 import pl.sternik.mg.znaczki.services.KlaserService;
 import pl.sternik.mg.znaczki.services.NotificationService;
 
@@ -37,18 +37,18 @@ public class KlaserController {
 //        return Arrays.asList(Status.ALL);
 //    }
 
-    @ModelAttribute("coinsAll")
-    public List<Moneta> populateCoins() {
+    @ModelAttribute("stampsAll")
+    public List<Znaczek> populateStamps() {
         return this.klaserService.findAll();
     }
 
-//    @ModelAttribute("coinsToSell")
-//    public List<Moneta> populateCoinsToSell() {
+//    @ModelAttribute("stampsToSell")
+//    public List<Moneta> populateStampsToSell() {
 //        return this.klaserService.findAllToSell();
 //    }
 
-//    @ModelAttribute("coinsLast3")
-//    public List<Moneta> populateLast3Coins() {
+//    @ModelAttribute("stampsLast3")
+//    public List<Moneta> populateLast3Stamps() {
 //        return this.klaserService.findLatest3();
 //    }
 
@@ -57,7 +57,7 @@ public class KlaserController {
         return "index";
     }
 
-    @RequestMapping(value = "/monety", method = RequestMethod.GET)
+    @RequestMapping(value = "/znaczki", method = RequestMethod.GET)
     public String showMainPage(Model model) {
         model.addAttribute("MyMessages",  notificationService.getNotificationMessages());
         return "klaser";

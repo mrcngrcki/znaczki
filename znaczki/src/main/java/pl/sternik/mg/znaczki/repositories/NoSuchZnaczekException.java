@@ -1,13 +1,13 @@
 package pl.sternik.mg.znaczki.repositories;
 
-public class NoSuchMonetaException extends Exception {
+public class NoSuchZnaczekException extends Exception {
     private static final long serialVersionUID = -8555511053844242536L;
 
-    public NoSuchMonetaException(String string) {
+    public NoSuchZnaczekException(String string) {
 		super(string);
 	}
 
-	public NoSuchMonetaException() {
+	public NoSuchZnaczekException() {
 	}
 
 
