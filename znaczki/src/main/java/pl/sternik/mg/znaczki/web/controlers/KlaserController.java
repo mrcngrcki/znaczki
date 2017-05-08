@@ -42,10 +42,10 @@ public class KlaserController {
         return this.klaserService.findAll();
     }
 
-//    @ModelAttribute("stampsToSell")
-//    public List<Moneta> populateStampsToSell() {
-//        return this.klaserService.findAllToSell();
-//    }
+    @ModelAttribute("stampsToSell")
+    public List<Znaczek> populateStampsToSell() {
+        return this.klaserService.findAllToSell();
+    }
 
 //    @ModelAttribute("stampsLast3")
 //    public List<Moneta> populateLast3Stamps() {

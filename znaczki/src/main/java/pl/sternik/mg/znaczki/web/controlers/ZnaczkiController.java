@@ -41,6 +41,11 @@ public class ZnaczkiController {
     public List<Status> populateStatusy() {
         return Arrays.asList(Status.ALL);
     }
+    
+    @ModelAttribute("statusyToSell")
+    public List<Status> StatusToSell() {
+        return Arrays.asList(Status.DO_SPRZEDANIA);
+    }
 
     @GetMapping(value = "/znaczki/{id}")
     public String view(@PathVariable("id") Long id, final ModelMap model) {
