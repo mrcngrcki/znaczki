@@ -21,7 +21,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "pl.sternik.kk.weekend.web" })
+@ComponentScan({ "pl.sternik.mg.znaczki.web" })
 public class SpringWebConfig
         extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
