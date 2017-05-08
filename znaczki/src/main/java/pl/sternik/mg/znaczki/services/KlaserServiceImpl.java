@@ -29,7 +29,7 @@ public class KlaserServiceImpl implements KlaserService {
 
     @Override
     public List<Znaczek> findAllToSell() {
-        return bazaDanych.findAll();
+        return bazaDanych.findAllToSell();
     }
 
     @Override

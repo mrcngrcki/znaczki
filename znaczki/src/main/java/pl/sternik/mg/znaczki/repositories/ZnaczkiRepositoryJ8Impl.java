@@ -35,6 +35,11 @@ public class ZnaczkiRepositoryJ8Impl implements ZnaczkiRepository {
     public List<Znaczek> findAll() {
         return this.znaczki;
     }
+    
+    @Override
+    public List<Znaczek> findAllToSell() {
+        return this.znaczki;
+    }
 
     @Override
     public Znaczek readById(Long id) throws NoSuchZnaczekException {

@@ -11,4 +11,5 @@ public interface ZnaczkiRepository {
     Znaczek update(Znaczek znaczek) throws NoSuchZnaczekException;
     void deleteById(Long id) throws NoSuchZnaczekException;
     List<Znaczek> findAll();
+    List<Znaczek> findAllToSell();
 }
