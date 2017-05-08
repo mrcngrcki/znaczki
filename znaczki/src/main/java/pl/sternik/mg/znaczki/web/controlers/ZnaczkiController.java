@@ -85,7 +85,7 @@ public class ZnaczkiController {
         else
             notifyService.addErrorMessage("Zapis NIE udany");
         model.clear();
-        return "redirect:/znaczek";
+        return "redirect:/znaczki";
     }
 
     @RequestMapping(value = "/znaczki", params = { "create" }, method = RequestMethod.POST)
