@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
@@ -21,7 +22,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "pl.sternik.mg.znaczki.web" })
+@ComponentScan({ "pl.sternik.kk.weekend.web" })
+@Import({ SecurityConfig.class })
 public class SpringWebConfig
         extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
