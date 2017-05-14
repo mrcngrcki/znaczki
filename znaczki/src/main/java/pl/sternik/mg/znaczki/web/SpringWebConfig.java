@@ -22,7 +22,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "pl.sternik.kk.weekend.web" })
+@ComponentScan({ "pl.sternik.mg.znaczki.web" })
 @Import({ SecurityConfig.class })
 public class SpringWebConfig
         extends WebMvcConfigurerAdapter implements ApplicationContextAware {
