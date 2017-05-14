@@ -17,7 +17,7 @@
     <a href="tosell.html" th:href="@{/tosell}">Znaczki do sprzedania</a>
     <a href="znaczek.html" th:href="@{/znaczki/create}">Dodaj znaczek</a>
     Zalogowany: <b th:inline="text"> [[${#httpServletRequest.remoteUser}]] </b>  
-    <form th:action="@{/wyloguj}" method="POST" style="display: inline">
+    <form th:action="@{/logout}" method="POST" style="display: inline">
         <input type=submit class="link" value="Wyloguj"/>
     </form>   
     <ul id="messages">
