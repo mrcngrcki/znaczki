@@ -26,7 +26,7 @@ import pl.sternik.mg.znaczki.services.NotificationService;
 public class KlaserController {
 
     @Autowired
-    // @Qualifier("spring")
+     @Qualifier("spring")
     private KlaserService klaserService;
 
     @Autowired
