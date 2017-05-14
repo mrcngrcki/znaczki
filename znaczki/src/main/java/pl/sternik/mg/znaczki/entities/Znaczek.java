@@ -2,32 +2,38 @@ package pl.sternik.mg.znaczki.entities;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
+import pl.sternik.mg.znaczki.entities.Status;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-//@Entity
+import org.hibernate.validator.constraints.NotEmpty;
+
+@Entity
 //@XmlRootElement
 public class Znaczek {
 
-//    @NotNull
-//    @Id
+    @NotNull
+    @Id
     private Long numerKatalogowy;
 	
-//	@NotNull
+	@NotNull
 	private Long nominal;
 	
 	//@Size(min=2, max=30, message = "{Size.znaczek.opis}")
-//	@Size(min=2, max=30, message = "Opis should be in the range [{min}...{max}]")
+	@Size(min=2, max=30, message = "Opis should be in the range [{min}...{max}]")
 	private String opis;
-//	@NotEmpty
+	@NotEmpty
 	private String waluta;
-//	@NotNull
+	@NotNull
 	private BigDecimal cenaNabycia;
-//	@NotNull
+	@NotNull
 	private Date dataNabycia;
-//	@NotEmpty
+	@NotEmpty
 	private String krajPochodzenia;
-//	@NotNull
+	@NotNull
 	private Status status;
 
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -78,7 +79,7 @@ public class ZnaczkiController {
     }
 
     @RequestMapping(value = "/znaczki", params = { "save" }, method = RequestMethod.POST)
-    public String saveMoneta(Znaczek znaczek, BindingResult bindingResult, ModelMap model) {
+    public String saveZnaczek(@Valid Znaczek znaczek, BindingResult bindingResult, ModelMap model) {
 
         if (bindingResult.hasErrors()) {
             notifyService.addErrorMessage("Please fill the form correctly!");
